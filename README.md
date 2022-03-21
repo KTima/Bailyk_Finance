@@ -1,3 +1,3 @@
 # bailyk_finance
 
-Не забудьте скачать pip install django-crispy-forms!!!!
+Не забудьте скачать pip install django-crispy-forms , django-filter !!!!
