@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Результаты</h1>
+    <table>
+        <tr>
+            <th>Серия карты</th>
+            <th>Номер карты</th>
+            <th>Дата выпуска карты</th>
+            <th>Дата окончания </th>
+            <th>Дата использования</th>
+            <th>Сумма</th>
+            <th>Статус</th>
+        </tr>
+        {% for credit in object_list %}
+        <tr>
+            <td>{{ credit.Series.Series}}</td>
+            <td>{{ credit.Numbers }}</td>
+            <td>{{ credit.Relase_date }}</td>
+            <td>{{ credit.End_date }}</td>
+            <td>{{ credit.Use_date }}</td>
+            <td>{{ credit.Summ }}</td>
+            <td>{{ credit.Status }}</td>
+            <td><a href="{% url 'update' credit.id %}" class="shine-button" >Редактировать</a></td>
+            <td><a href="{% url 'detail' credit.id %}" class="shine-button" >Истории</a></td>
+            <td><form id="delete_form" action="{% url 'delete' credit.id %}" method="post">{% csrf_token %}
+                <button type="submit" class="shine-button">Удалить</button>
+            </form></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

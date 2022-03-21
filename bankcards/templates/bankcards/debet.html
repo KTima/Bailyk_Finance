@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'bankcards/css/index.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <a href="{% url 'createdebet' %}" class="floating-button">Создать</a>
+    <form action="{% url 'searchdebet_results' %}" method="get">
+        <select name="debetcard" id="">
+                <option value="all">---------------</option>
+                <option value="Visa">Visa</option>
+                <option value="MasterCard">MasterCard</option>
+        </select>
+        <input type="text" name="debetnum">
+        <input type="date" name="debetdate1">
+        <input type="date" name="debetdate2">
+        <input type="number" name="debetsum">
+        <select name="debetact" id="">
+            <option value="allser">---------------</option>
+            <option value="notactiv">не активирован</option>
+            <option value="activ">активирован</option>
+        </select>
+        <button type="submit">Поиск</button>
+      </form>
+    <table>
+        <tr>
+            <th>Серия карты</th>
+            <th>Номер карты</th>
+            <th>Дата выпуска карты</th>
+            <th>Дата окончания </th>
+            <th>Дата использования</th>
+            <th>Сумма</th>
+            <th>Статус</th>
+        </tr>
+        {% for debet in debets %}
+        <tr>
+            <td>{{ debet.Series.Series}}</td>
+            <td>{{ debet.Numbers }}</td>
+            <td>{{ debet.Relase_date }}</td>
+            <td>{{ debet.End_date }}</td>
+            <td>{{ debet.Use_date }}</td>
+            <td>{{ debet.Summ }}</td>
+            <td>{{ debet.Status }}</td>
+            <td><a href="{% url 'update' debet.id %}" class="shine-button" >Редактировать</a></td>
+            <td><a href="{% url 'detail' debet.id %}" class="shine-button" >Истории</a></td>
+            <td><form id="delete_form" action="{% url 'delete' debet.id %}" method="post">{% csrf_token %}
+                <button type="submit" class="shine-button">Удалить</button>
+            </form></td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+</body>
+</html>
